@@ -27,7 +27,7 @@ const headerStyle = {
         >
           <Stack.Screen name="narratorRL" component={Home} />
           <Stack.Screen
-            name="narratorRL"
+            name="Capture"
             component={Capture}
             options={{
               headerLeft: null,
