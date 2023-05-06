@@ -48,7 +48,7 @@ export default function Capture({ navigation, route }) {
 
   const stop = () => {
     Speech.stop();
-    console.log('stop');
+    //console.log('stop');
   }
 
   const goHome = async () => {
