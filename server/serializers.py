@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import ImageText
+from server.models import ImageText
 
 
 class ProductSerializer(serializers.ModelSerializer):
