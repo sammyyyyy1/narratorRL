@@ -21,7 +21,7 @@ export default function Home({ navigation }) {
       const { uri } = await cameraRef.current.takePictureAsync();
       const base64 = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
 
-      console.log(base64);
+      console.log(uri);
 
       // const response = await fetch('http://', {
       //   method: 'POST',
