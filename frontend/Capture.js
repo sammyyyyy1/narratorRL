@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, ImageBackground, View, TouchableOpacity, Text, Pressable } from "react-native";
+import { StyleSheet, ImageBackground, View, TouchableOpacity, Text, Pressable, Animated } from "react-native";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import * as Speech from 'expo-speech';
 
@@ -8,10 +8,11 @@ export default function Capture({ navigation, route }) {
   const glasses = 'Glasses are really versatile. First, you can have glasses-wearing girls take them off and suddenly become beautiful, or have girls wearing glasses flashing those cute grins!';
   const [progress, setProgress] = useState(false);
   const [paused, setPaused] = useState(false);
+  const pauseAnim = React.useRef(new Animated.Value(0)).current;
+  const playAnim = React.useRef(new Animated.Value(0)).current;
   const { uri } = route.params;
 
   const speak = (text) => {
-    //const glasses = 'Hello world!';
     const start = () => {
       setProgress(true);
     };
@@ -19,7 +20,6 @@ export default function Capture({ navigation, route }) {
     const finish = () => {
       setProgress(false);
       setPaused(false);
-      //setText("");
     }
 
     const options = {
@@ -37,18 +37,34 @@ export default function Capture({ navigation, route }) {
   const pause = async () => {
     await Speech.pause();
     setPaused(true);
-    console.log('pause');
+    Animated.sequence([
+      Animated.timing(pauseAnim, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {});
   }
 
   const resume = () => {
     Speech.resume();
     setPaused(false);
-    console.log('resume');
+    Animated.sequence([
+      Animated.timing(playAnim, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+      Animated.timing(playAnim, {
+        toValue: 0,
+        duration: 100,
+        useNativeDriver: true,
+      })
+    ]).start(() => {});
   }
 
   const stop = () => {
     Speech.stop();
-    //console.log('stop');
   }
 
   const goHome = async () => {
@@ -56,7 +72,6 @@ export default function Capture({ navigation, route }) {
     navigation.goBack();
   };
 
-  // function for summarizing 
   const summarize = async () => {
     stop();
     const sum = "We are summarizing now, Steven Wu!!";
@@ -71,7 +86,13 @@ export default function Capture({ navigation, route }) {
     <View style={{ flex: 1 }}>
       <Pressable style={styles.pressing} onPress={paused ? resume : pause}>
         <ImageBackground source={{ uri }} style={styles.image} resizeMode="contain"> 
-          {progress ? (<AntDesign name="sound" style={styles.soundIcon} size={36} backgroundColor="#00000077" color="white" />) : undefined}
+          {paused ? 
+          (<Animated.View style={[styles.soundIconWrapper, { opacity: pauseAnim }]}>
+            <Ionicons name="pause-outline" style={styles.soundIcon} size={100} color="white" />
+          </Animated.View>) 
+          : (<Animated.View style={[styles.soundIconWrapper, { opacity: playAnim }]}>
+            <Ionicons name="play" style={styles.soundIcon} size={100} color="white" />
+          </Animated.View>)}
         </ImageBackground>
       </Pressable>
       <View style={styles.buttonContainer}>
@@ -87,6 +108,7 @@ export default function Capture({ navigation, route }) {
     </View>
   );
 }
+   
 
 const styles = StyleSheet.create({
   buttonContainer: {
@@ -125,11 +147,13 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   soundIcon: {
-    margin: 6,
-    padding: 13,
-    width: 62,
-    height: 62,
-    borderRadius: 62/2,
-    overflow: 'hidden'
+    alignContent: "center",
+  },
+  soundIconWrapper: {
+    position: "absolute",
+    top: "30%",
+    left: "40%",
+    alignContent: "center",
+    alignSelf:"center",
   }
 });

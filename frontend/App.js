@@ -30,7 +30,7 @@ const headerStyle = {
             name="Capture"
             component={Capture}
             options={{
-              headerLeft: null, // Hide the back button completely
+              headerLeft: null,
             }}
           />
         </Stack.Navigator>
