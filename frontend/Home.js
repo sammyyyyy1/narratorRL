@@ -16,28 +16,23 @@ export default function Home({ navigation }) {
     })();
   }, []);
 
-  const createFormData = (uri) => {
-    const data = new FormData();
-    data.append("image", {
-      uri,
-      type: "image/jpeg",
-      name: "image.jpg",
-    });
-    return data;
-  };
-
   const takePicture = async () => {
     if (cameraRef.current) {
       const { uri } = await cameraRef.current.takePictureAsync();
+      const base64 = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
 
-      // const result = createFormData(uri);
+      console.log(base64);
+
       // const response = await fetch('http://', {
       //   method: 'POST',
       //   headers: {
-      //     'Content-Type': 'multipart/form-data',
+      //     'Content-Type': 'application/json',
       //   },
-      //   body: createFormData(uri),
+      //   body: JSON.stringify({
+      //     image: base64,
+      //   }),
       // });
+
       // const data = await response.json();
       // console.log(data);
 
