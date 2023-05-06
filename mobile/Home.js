@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Camera } from "expo-camera";
 import { Ionicons } from "@expo/vector-icons";
 import * as FileSystem from "expo-file-system";
+import * as ImageManipulator from 'expo-image-manipulator';
 
 export default function Home({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -19,19 +20,29 @@ export default function Home({ navigation }) {
   const takePicture = async () => {
     if (cameraRef.current) {
       const { uri } = await cameraRef.current.takePictureAsync();
-      const base64 = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
+      const manip = await ImageManipulator.manipulateAsync(
+        uri, [ {rotate: -360} ]);
+      console.log(manip);
+      const based64 = await FileSystem.readAsStringAsync(manip.uri, { encoding: FileSystem.EncodingType.Base64 });
+      const base64 = based64.replaceAll('/', ';');
+      //console.log(base64);
+      console.log(base64.length);
 
-      console.log(uri);
+      // const response = await fetch(`http://192.168.154.213:8000/read/${base64}`);
+      // const res_json = await response.json();
+      // console.log(res_json);
 
-      // const response = await fetch('http://', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({
-      //     image: base64,
-      //   }),
-      // });
+      const response = await fetch('http://192.168.154.213:8000/read/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          image: base64,
+        }),
+      });
+      const result  = await response.json();
+      console.log(result);
 
       // const data = await response.json();
       // console.log(data);
@@ -43,7 +54,7 @@ export default function Home({ navigation }) {
 
       await FileSystem.moveAsync({ from: uri, to: path });
 
-      navigation.navigate("Capture", { uri: path });
+      navigation.navigate("Capture", { uri: path, text: result.text });
     }
   };
 

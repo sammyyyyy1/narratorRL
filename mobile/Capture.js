@@ -5,12 +5,11 @@ import * as Speech from 'expo-speech';
 
 
 export default function Capture({ navigation, route }) {
-  const glasses = 'Glasses are really versatile. First, you can have glasses-wearing girls take them off and suddenly become beautiful, or have girls wearing glasses flashing those cute grins!';
   const [progress, setProgress] = useState(false);
   const [paused, setPaused] = useState(false);
   const pauseAnim = React.useRef(new Animated.Value(0)).current;
   const playAnim = React.useRef(new Animated.Value(0)).current;
-  const { uri } = route.params;
+  const { uri, text } = route.params;
 
   const speak = (text) => {
     const start = () => {
@@ -79,7 +78,7 @@ export default function Capture({ navigation, route }) {
   };
 
   useEffect(() => {
-    speak(glasses);
+    speak(text);
   },[]);
 
   return (
