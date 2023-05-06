@@ -86,6 +86,7 @@ export default function Capture({ navigation, route }) {
     <View style={{ flex: 1 }}>
       <Pressable style={styles.pressing} onPress={paused ? resume : pause}>
         <ImageBackground source={{ uri }} style={styles.image} resizeMode="contain"> 
+        {progress ? (<AntDesign name="sound" style={styles.soundIcon} size={36} backgroundColor="#00000077" color="white" />) : undefined}
           {paused ? 
           (<Animated.View style={[styles.soundIconWrapper, { opacity: pauseAnim }]}>
             <Ionicons name="pause-outline" style={styles.soundIcon} size={100} color="white" />
