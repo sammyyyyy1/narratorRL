@@ -1,5 +1,5 @@
 from bisect import insort
-
+from .preprocess import clean_text
 import pytesseract
 from PIL import Image
 from io import BytesIO
@@ -33,6 +33,8 @@ def pytesseract_read_image(image):
         sentences.append(" ".join(word[2] for word in sentence))
 
     result = ". ".join(sentences)
+
+    result = clean_text(result)
 
     if _is_empty_string(result):
         return "No string detected. Maybe try again."
