@@ -1,3 +1,5 @@
+cohere
+contractions
 django
 djangorestframework
 pillow
