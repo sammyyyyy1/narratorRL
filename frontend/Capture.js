@@ -86,7 +86,7 @@ export default function Capture({ navigation, route }) {
     <View style={{ flex: 1 }}>
       <Pressable style={styles.pressing} onPress={paused ? resume : pause}>
         <ImageBackground source={{ uri }} style={styles.image} resizeMode="contain"> 
-        {progress ? (<AntDesign name="sound" style={styles.soundIcon} size={36} backgroundColor="#00000077" color="white" />) : undefined}
+          {progress ? (<AntDesign name="sound" style={styles.progressIcon} size={36} backgroundColor="#00000077" color="white" />) : undefined}
           {paused ? 
           (<Animated.View style={[styles.soundIconWrapper, { opacity: pauseAnim }]}>
             <Ionicons name="pause-outline" style={styles.soundIcon} size={100} color="white" />
@@ -102,7 +102,7 @@ export default function Capture({ navigation, route }) {
           <Text style={styles.buttonText}>Cancel</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={summarize}>
-          <Ionicons name="checkmark-outline" size={50} color="#fff" />
+          <Ionicons name="reader-outline" size={50} color="#fff" />
           <Text style={styles.buttonText}>Summarize</Text>
         </TouchableOpacity>
       </View>
@@ -149,6 +149,14 @@ const styles = StyleSheet.create({
   },
   soundIcon: {
     alignContent: "center",
+  },
+  progressIcon: {
+    margin: 6,
+    padding: 13,
+    width: 62,
+    height: 62,
+    borderRadius: 62/2,
+    overflow: 'hidden'
   },
   soundIconWrapper: {
     position: "absolute",
