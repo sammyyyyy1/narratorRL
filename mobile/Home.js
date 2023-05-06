@@ -32,7 +32,7 @@ export default function Home({ navigation }) {
       // const res_json = await response.json();
       // console.log(res_json);
 
-      const response = await fetch('http://192.168.154.213:8000/read/', {
+      const response = await fetch('http://192.168.154.220:8000/read/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

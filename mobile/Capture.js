@@ -7,6 +7,7 @@ import * as Speech from 'expo-speech';
 export default function Capture({ navigation, route }) {
   const [progress, setProgress] = useState(false);
   const [paused, setPaused] = useState(false);
+  const [advanced, setAdvanced] = useState(false);
   const pauseAnim = React.useRef(new Animated.Value(0)).current;
   const playAnim = React.useRef(new Animated.Value(0)).current;
   const { uri, text } = route.params;
