@@ -81,14 +81,14 @@ export default function Capture({ navigation, route }) {
 
   const language = async () => {
     stop();
-    const response = await fetch(`http://${env.ip}:8000/summarize/${id}`);
+    const response = await fetch(`http://${env.ip}:8000/language/${id}`);
     const result  = await response.json();
     speak(result.text);
   };
 
   const keywords = async () => {
     stop();
-    const response = await fetch(`http://${env.ip}:8000/summarize/${id}`);
+    const response = await fetch(`http://${env.ip}:8000/keywords/${id}`);
     const result  = await response.json();
     speak(result.text);
   };
