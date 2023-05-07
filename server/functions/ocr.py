@@ -1,6 +1,6 @@
 from bisect import insort
 from .preprocess import clean_text
-from .legibility_test import test_legibility
+from .legibility_test import is_legible
 import pytesseract
 from PIL import Image
 from io import BytesIO
