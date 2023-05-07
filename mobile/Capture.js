@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, ImageBackground, View, TouchableOpacity, Text, Pressable, Animated } from "react-native";
+import { StyleSheet, ImageBackground, View, TouchableOpacity, Text, Pressable, Animated, Switch } from "react-native";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import * as Speech from 'expo-speech';
-
 
 export default function Capture({ navigation, route }) {
   const [progress, setProgress] = useState(false);
   const [paused, setPaused] = useState(false);
+  const [advanced, setAdvanced] = useState(false);
   const pauseAnim = React.useRef(new Animated.Value(0)).current;
   const playAnim = React.useRef(new Animated.Value(0)).current;
   const { uri, text } = route.params;
@@ -81,11 +81,29 @@ export default function Capture({ navigation, route }) {
     speak(text);
   },[]);
 
+  const toggleSwitch = () => {
+    setAdvanced(!advanced);
+    console.log(advanced);
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <Pressable style={styles.pressing} onPress={paused ? resume : pause}>
         <ImageBackground source={{ uri }} style={styles.image} resizeMode="contain"> 
           {progress ? (<AntDesign name="sound" style={styles.progressIcon} size={36} backgroundColor="#00000077" color="white" />) : undefined}
+          <View style={styles.contain}>
+            <Pressable onPress={toggleSwitch} style={({pressed}) => [
+              {
+                backgroundColor: advanced ? '#5899f7' : '#00000077',
+                borderColor: advanced ? '#5899f7' : '#00000077'
+              },
+              styles.textWrap
+            ]}>
+              <Text style={styles.switchText}>
+                Advanced
+              </Text>
+            </Pressable>
+          </View>
           {paused ? 
           (<Animated.View style={[styles.soundIconWrapper, { opacity: pauseAnim }]}>
             <Ionicons name="pause-outline" style={styles.soundIcon} size={100} color="white" />
@@ -104,6 +122,16 @@ export default function Capture({ navigation, route }) {
           <Ionicons name="reader-outline" size={50} color="#fff" />
           <Text style={styles.buttonText}>Summarize</Text>
         </TouchableOpacity>
+        {advanced ? 
+        (<TouchableOpacity style={styles.button} onPress={summarize}>
+          <Ionicons name="ios-globe-outline" size={50} color="#fff" />
+          <Text style={styles.buttonText}>Language</Text>
+        </TouchableOpacity>) : undefined}
+        {advanced ? 
+        (<TouchableOpacity style={styles.button} onPress={summarize}>
+          <Ionicons name="logo-closed-captioning" size={50} color="#fff" />
+          <Text style={styles.buttonText}>Richard</Text>
+        </TouchableOpacity>) : undefined}
       </View>
     </View>
   );
@@ -121,12 +149,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     zIndex: 1,
     height: "25%",
-    backgroundColor: "#333",
+    backgroundColor: "#33333388",
   },
   button: {
     flex: 1,
     height: "100%",
-    backgroundColor: "#333",
+    backgroundColor: "#33333388",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -163,5 +191,29 @@ const styles = StyleSheet.create({
     left: "40%",
     alignContent: "center",
     alignSelf:"center",
+  },
+  contain: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    position: 'absolute',
+    top: 0,
+    right: 0,
+  },
+  textWrap: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 2,
+    borderRadius: 15,
+    overflow: 'hidden',
+    height: 31,
+    width: 95,
+    marginTop: 19,
+    marginRight: 6,    
+  },
+  switchText: {
+    color: "white",
+    fontWeight: 'bold',
+    fontSize: 17,
   }
 });

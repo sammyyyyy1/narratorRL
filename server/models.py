@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class ImageText(models.Model):
+class Image(models.Model):
 
     id = models.CharField(max_length=500, primary_key=True)
     text = models.TextField()

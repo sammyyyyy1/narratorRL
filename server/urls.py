@@ -20,5 +20,6 @@ from server import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("read/", views.read_image)
+    path("read/", views.read_image),
+    path("summarize/<str:key>", views.summarize_image)
 ]

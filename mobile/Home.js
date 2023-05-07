@@ -31,8 +31,9 @@ export default function Home({ navigation }) {
       // const response = await fetch(`http://192.168.154.213:8000/read/${base64}`);
       // const res_json = await response.json();
       // console.log(res_json);
-
-      const response = await fetch('http://192.168.154.213:8000/read/', {
+      // 192.168.154.213 steven
+      // 192.168.154.220 brasen
+      const response = await fetch('http://192.168.154.220:8000/read/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -108,12 +109,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     zIndex: 1,
     height: "25%",
-    backgroundColor: "#333",
+    backgroundColor: "#33333388",
   },
   button: {
     flex: 1,
     height: "100%",
-    backgroundColor: "#333",
+    backgroundColor: "#33333388",
     justifyContent: "center",
     alignItems: "center",
   },
