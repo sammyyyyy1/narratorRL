@@ -11,9 +11,9 @@ def get_summary(text):
     cohere = Client(COHERE_SECRET_KEY)
     response = cohere.summarize(
         model='summarize-xlarge',
-        temperature=0.3,
+        temperature=0,
         length='short',
-        extractiveness='medium',
+        extractiveness='high',
         format='bullets',
         text=text
     )
@@ -111,7 +111,7 @@ def get_keywords(text):
             temperature=1,
             stop_sequences=["--"])
         keywords = response.generations[0].text.strip("\n--").lstrip(" ").split(", ")
-        if len(keywords) > 1:
+        if len(keywords) > 2:
             break
 
     output_text = ', '.join(keywords)
