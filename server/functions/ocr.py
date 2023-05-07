@@ -1,5 +1,6 @@
 from bisect import insort
 from .preprocess import clean_text
+from .legibility_test import test_legibility
 import pytesseract
 from PIL import Image
 from io import BytesIO
@@ -37,5 +38,7 @@ def pytesseract_read_image(image):
     result = clean_text(result)
 
     if _is_empty_string(result):
-        return "No string detected. Maybe try again."
+        return "No string detected. Try again."
+    elif not is_legible(result):
+        return "Bad read. Try again."
     return result
