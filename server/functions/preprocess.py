@@ -14,6 +14,7 @@ def clean_text(text):
     text = " ".join(text.split())
     text = fix_contractions(text)
     text = text.strip()
+    text = text.replace('\n', ' ')
 
     # remove numbers (generally not needed)
     # cleaned_string = ''.join([i for i in text if not i.isdigit()])
