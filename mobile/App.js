@@ -11,12 +11,13 @@ const headerStyle = {
     headerStyle: {
       backgroundColor: '#333',
       borderBottomWidth: 0,
-      height: 100,
+      height: 0,
     },
     headerTitleStyle: {
-      fontSize: 30,
+      fontSize: 0,
     },
   };
+
 
   const App = () => {
     return (
@@ -31,6 +32,7 @@ const headerStyle = {
             component={Capture}
             options={{
               headerLeft: null,
+              headerTitle: () => <LogoTitle />
             }}
           />
         </Stack.Navigator>
