@@ -9,7 +9,7 @@ export default function Capture({ navigation, route }) {
   const [advanced, setAdvanced] = useState(false);
   const pauseAnim = React.useRef(new Animated.Value(0)).current;
   const playAnim = React.useRef(new Animated.Value(0)).current;
-  const { uri, text } = route.params;
+  const { id, text, uri } = route.params;
 
   const speak = (text) => {
     const start = () => {
@@ -73,8 +73,9 @@ export default function Capture({ navigation, route }) {
 
   const summarize = async () => {
     stop();
-    const sum = "We are summarizing now, Steven Wu!!";
-    speak(sum);
+    const response = await fetch(`http://192.168.154.213:8000/summarize/${id}`);
+    const result  = await response.json();
+    speak(result.text);
   };
 
   useEffect(() => {

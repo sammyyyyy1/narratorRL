@@ -1,5 +1,5 @@
-import React, { Image, useState, useEffect, useRef } from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import { Image, StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Camera } from "expo-camera";
 import { Ionicons } from "@expo/vector-icons";
 import * as FileSystem from "expo-file-system";
@@ -33,7 +33,7 @@ export default function Home({ navigation }) {
       // console.log(res_json);
       // 192.168.154.213 steven
       // 192.168.154.220 brasen
-      const response = await fetch('http://192.168.154.220:8000/read/', {
+      const response = await fetch('http://192.168.154.213:8000/read/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ export default function Home({ navigation }) {
 
       await FileSystem.moveAsync({ from: uri, to: path });
 
-      navigation.navigate("Capture", { uri: path, text: result.text });
+      navigation.navigate("Capture", { uri: path, ...result });
     }
   };
 
@@ -72,6 +72,13 @@ export default function Home({ navigation }) {
 
   return (
     <View style={{ flex: 1 }}>
+      <View style={styles.headerContainer}>
+        <Image
+          style={styles.headerImage}
+          resizeMode="contain"
+          source={require('./assets/logo.png')}
+        />
+      </View>
       <Camera
         style={{ flex: 1 }}
         type={Camera.Constants.Type.back}
@@ -99,6 +106,27 @@ export default function Home({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    zIndex: 1,
+    height: "15%",
+    backgroundColor: "#33333388",
+  },
+  headerImage: {
+    flex: 1,
+    top: "5%",
+    left: "10%",
+    right: "10%",
+    height: "50%",
+    width: "50%",
+    justifyContent: "center",
+  },
   buttonContainer: {
     position: "absolute",
     bottom: 0,
