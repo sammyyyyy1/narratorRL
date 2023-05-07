@@ -8,9 +8,9 @@ def get_summary(text):
     cohere = Client(COHERE_SECRET_KEY)
     response = cohere.summarize(
         model='summarize-xlarge',
-        temperature=0.1,
-        length='medium',
-        extractiveness='high',
+        temperature=0.3,
+        length='short',
+        extractiveness='medium',
         format='bullets',
         text=text
     )
@@ -71,14 +71,6 @@ def get_keywords(text):
     Passage: Our new vacuum cleaner is the ultimat cleaning machine! With its powerful suction and easy-to-use attachments, it can clean even the most stubborn dirt and debris. Plus, it's lightweight and portable, so you can take it anywhere you go.
     
     TLDR: Vacuum cleaner, ultimate cleaning machine, powerful suction, easy-to-use, attachments, stubborn dirt, debris, lightweight, portable, anywhere
-    --
-    Passage: Looking for a delicious and healthy snack? Try our new line of organic, gluten-free granola bars! Made with all-natural ingredients and packed with protein and fiber, they're the perfect snack for any time of day. Available now at your local health food store.
-    
-    TLDR: Delicious, healthy snack, organic, gluten-free, granola bars, all-natural ingredients, protein, fiber, perfect snack, any time of day, local health food store
-    --
-    Passage: Chocolate is one of the most popular treats in the world. It comes in many forms, from milk chocolate to dark chocolate, and is often used in desserts and candy. However, it also has some health benefits, such as improving heart health and reducing inflammation
-    
-    TLDR: Chocolate, popular, treats, milk chocolate, dark chocolate, desserts, candy, health benefits, heart health, reducing inflammation
     --
     Passage: Congratulations on your new job as a softwear engineeer! You'll be responsible for developing and maintaining computer programs and applications. Your tasks include writing code, testing software, and troubleshooting problems. We're excited to have you on board and look forward to seeing what you can do!
     
