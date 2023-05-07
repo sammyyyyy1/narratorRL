@@ -5,9 +5,11 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from PIL import Image
 from io import BytesIO
+from time import time
+from hashlib import md5
 
-from server.models import ImageText
-from server.serializers import ProductSerializer
+from server.models import Image
+from server.serializers import ImageSerializer
 from server.functions.ocr import pytesseract_read_image
 
 
@@ -20,52 +22,29 @@ def read_image(request):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
     image = Image.open(BytesIO(raw_img))
-    # print(image.size)
-    # if image.size[0] > image.size[1]:
-    #     print("rotate")
-    #     image = image.rotate(270)
-    #     print(image.size)
+    text = pytesseract_read_image(image)
+    key = md5(str(time()).encode()).hexdigest() + str(round(time()))
+    serializer = ImageSerializer(data=dict(id=key, text=text))
 
-    data = pytesseract_read_image(image)
-    with open("res.jpg", "wb") as img_file:
-        img_file.write(raw_img)
+    if serializer.is_valid():
+        serializer.save()
+        print(f"read success: {key}")
+        return Response(dict(id=key, text=text))
 
-    return Response({"text": data})
-
-    # url = b64decode(b64).decode("utf-8")
-    # url_parts = url.split("/")
-    # name = url_parts[0] + url_parts[2]
-    # print(url)
-    #
-    # try:
-    #     product = ImageText.objects.get(pk=name)
-    # except ImageText.DoesNotExist:
-    #     print("[SEARCH] - Start")
-    #     scrape_res = translate(url_parts[0] + url_parts[2], scrape(url_parts[0], url_parts[2]))
-    #     print("[SEARCH] - Completed")
-    #     serializer = ProductSerializer(data=scrape_res)
-    #     if serializer.is_valid():
-    #         print("[DATA] - Valid")
-    #         serializer.save()
-    #         product = ImageText.objects.get(pk=name)
-    #     else:
-    #         print("[DATA] - Invalid")
-    #         return Response(status=status.HTTP_404_NOT_FOUND)
-    #
-    # data = dict(ProductSerializer(product).data)
-    return Response({
-        "id": "hi"
-    })
+    print(f"read fail: {key}")
+    return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["GET"])
-def summarize_image(request, image_id):
+def summarize_image(request, key):
 
     try:
-        product = ImageText.objects.get(pk=image_id)
-    except ImageText.DoesNotExist:
+        product = Image.objects.get(pk=key)
+    except Image.DoesNotExist:
+        print(f"summ fail: {key}")
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+    print(f"summ success: {key}")
     return Response({
-        "tdb": "freddy"
+        "text": "summarized"
     })

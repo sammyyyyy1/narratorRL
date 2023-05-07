@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from server.models import ImageText
+from server.models import Image
 
 
-admin.site.register(ImageText)
+admin.site.register(Image)

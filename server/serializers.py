@@ -1,10 +1,10 @@
 from rest_framework import serializers
 
-from server.models import ImageText
+from server.models import Image
 
 
-class ProductSerializer(serializers.ModelSerializer):
+class ImageSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = ImageText
+        model = Image
         fields = ("id", "text")
