@@ -24,16 +24,16 @@ def get_lang(text):
     cohere = Client(COHERE_SECRET_KEY)
     arr = [text]
     languages = []
-    results = co.detect_language(arr).results
+    results = cohere.detect_language(arr).results
     for item in results:
         languages.append(item.language_name)
 
     return languages[0]
 
 
-
 def get_keywords(text):
-    co = cohere.Client("nCnCpljhAaNwrkZjVDllnDaR5JCbF3NJRcRK7Z33")
+
+    cohere = Client("nCnCpljhAaNwrkZjVDllnDaR5JCbF3NJRcRK7Z33")
 
     prompt = f"""
     Passage: Climate change is one of the biggest challenges facing our planet. The burning of fossil fuels, deforestation, and other human activities are causing the Earth's temperature to rise, leading to more extreme weather events, rising sea levels, and other environmental problems. It is crucial that we take action to reduce our carbon footprint, transition to renewable energy sources, and protect vulnerable ecosystems.
@@ -76,14 +76,6 @@ def get_keywords(text):
     
     TLDR: Delicious, healthy snack, organic, gluten-free, granola bars, all-natural ingredients, protein, fiber, perfect snack, any time of day, local health food store
     --
-    Passage: Get ready for the ultimate gaming experience with our new gaming console! With advanced graphics and a lightning-fast processor, you'll feel like you're in the game. Plus, our console is compatible with all the latest games, so you'll never miss out on the fun. Order now and start gaming like a pro!
-    
-    TLDR:Gaming experience, gaming console, advanced graphics, lightning-fast processor, compatible, latest games, order, gaming like a pro
-    --
-    Passage: Introducing the new and improved SuperVac 2000! Our vacuum cleaner is designed to clean all types of surfaces, from carpets to hardwood floors. With its powerful suction and easy-to-use attachments, you can clean your entire home with ease. Don't settle for an ordinary vacuum, upgrade to the SuperVac 2000 today!
-    
-    TLDR: SuperVac 2000, vacuum cleaner, surfaces, carpets, hardwood floors, powerful suction, easy-to-use attachments, clean, entire home, upgrade
-    --
     Passage: Chocolate is one of the most popular treats in the world. It comes in many forms, from milk chocolate to dark chocolate, and is often used in desserts and candy. However, it also has some health benefits, such as improving heart health and reducing inflammation
     
     TLDR: Chocolate, popular, treats, milk chocolate, dark chocolate, desserts, candy, health benefits, heart health, reducing inflammation
@@ -111,9 +103,9 @@ def get_keywords(text):
     """
     
     custom_prompt = f"{prompt}\nPassage: {text}\n\nTLDR:"
-
-    while True:
-        response = co.generate(
+    keywords = []
+    for _ in range(10):
+        response = cohere.generate(
             model='medium',
             prompt=custom_prompt,
             max_tokens=10,

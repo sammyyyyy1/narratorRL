@@ -21,5 +21,7 @@ from server import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("read/", views.read_image),
-    path("summarize/<str:key>", views.summarize_image)
+    path("summarize/<str:key>", views.summarize_image),
+    path("language/<str:key>", views.get_image_lang),
+    path("keywords/<str:key>", views.get_image_keywords)
 ]
