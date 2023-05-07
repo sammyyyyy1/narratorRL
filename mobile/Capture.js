@@ -149,7 +149,7 @@ export default function Capture({ navigation, route }) {
         </TouchableOpacity>) : undefined}
         {advanced ? 
         (<TouchableOpacity style={styles.button} onPress={keywords}>
-          <Ionicons name="logo-closed-captioning" size={50} color="#fff" />
+          <Ionicons name="md-key" size={50} color="#fff" />
           <Text style={styles.buttonText}>Keywords</Text>
         </TouchableOpacity>) : undefined}
       </View>
