@@ -32,7 +32,6 @@ const headerStyle = {
             component={Capture}
             options={{
               headerLeft: null,
-              headerTitle: () => <LogoTitle />
             }}
           />
         </Stack.Navigator>

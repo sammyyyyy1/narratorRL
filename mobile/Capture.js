@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, ImageBackground, View, TouchableOpacity, Text, Pressable, Animated, Switch } from "react-native";
+import { Image, StyleSheet, ImageBackground, View, TouchableOpacity, Text, Pressable, Animated, Switch } from "react-native";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import * as Speech from 'expo-speech';
 import env from "./env";
@@ -24,7 +24,7 @@ export default function Capture({ navigation, route }) {
 
     const options = {
       pitch: 1.0,
-      rate: 1.05,
+      rate: 1.0,
       onStart: start,
       onDone: finish,
       onStopped: finish,
@@ -90,14 +90,15 @@ export default function Capture({ navigation, route }) {
 
   return (
     <View style={{ flex: 1 }}>
-      <Pressable style={styles.pressing} onPress={paused ? resume : pause}>
-        <ImageBackground source={{ uri }} style={styles.image} resizeMode="contain"> 
-          {progress ? (<AntDesign name="sound" style={styles.progressIcon} size={36} backgroundColor="#00000077" color="white" />) : undefined}
+      <View style={styles.headerContainer}>
+      {progress ? (<AntDesign name="sound" style={styles.progressIcon} size={36} backgroundColor="#00000077" color="white" />) : undefined}
           <View style={styles.contain}>
             <Pressable onPress={toggleSwitch} style={({pressed}) => [
               {
                 backgroundColor: advanced ? '#5899f7' : '#00000077',
-                borderColor: advanced ? '#5899f7' : '#00000077'
+                borderColor: advanced ? '#5899f7' : '#00000077',
+                top: "50%",
+                right: "10%"
               },
               styles.textWrap
             ]}>
@@ -106,6 +107,9 @@ export default function Capture({ navigation, route }) {
               </Text>
             </Pressable>
           </View>
+      </View>
+      <Pressable style={styles.pressing} onPress={paused ? resume : pause}>
+        <ImageBackground source={{ uri }} style={styles.image} resizeMode="contain"> 
           {paused ? 
           (<Animated.View style={[styles.soundIconWrapper, { opacity: pauseAnim }]}>
             <Ionicons name="pause-outline" style={styles.soundIcon} size={100} color="white" />
@@ -141,6 +145,26 @@ export default function Capture({ navigation, route }) {
    
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    zIndex: 1,
+    height: "15%",
+  },
+  headerImage: {
+    flex: 1,
+    top: "5%",
+    left: "10%",
+    right: "10%",
+    height: "50%",
+    width: "50%",
+    justifyContent: "center",
+  },
   buttonContainer: {
     position: "absolute",
     bottom: 0,
@@ -185,7 +209,9 @@ const styles = StyleSheet.create({
     width: 62,
     height: 62,
     borderRadius: 62/2,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    top: "5%",
+    left: "5%"
   },
   soundIconWrapper: {
     position: "absolute",
