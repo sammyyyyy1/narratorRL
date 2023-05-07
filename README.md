@@ -8,7 +8,7 @@
   ![](https://img.shields.io/github/last-commit/sammyyyyy1/narratorRL)
 
   ![](https://img.shields.io/badge/made%20for-MetHacks%202023-%239152a3?style=for-the-badge)
-  ![](https://img.shields.io/badge/sleep%20lost%20collectively-16h-yellow?style=for-the-badge)
+  ![](https://img.shields.io/badge/sleep%20lost%20collectively-26h-yellow?style=for-the-badge)
 
 </div>
 
