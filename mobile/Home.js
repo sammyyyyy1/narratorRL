@@ -32,7 +32,7 @@ export default function Home({ navigation }) {
       // const res_json = await response.json();
       // console.log(res_json);
       // 192.168.154.213 steven
-      // 192.168.154.220
+      // 192.168.154.220 brasen
       const response = await fetch('http://192.168.154.220:8000/read/', {
         method: 'POST',
         headers: {
