@@ -40,5 +40,6 @@ def pytesseract_read_image(image):
     if _is_empty_string(result):
         return "No string detected. Try again."
     elif not is_legible(result):
+        print(result)
         return "Bad read. Try again."
     return result
