@@ -35,11 +35,11 @@ def pytesseract_read_image(image):
 
     result = ". ".join(sentences)
 
-    result = clean_text(result)
+    cleaned_text = clean_text(result)
 
     if _is_empty_string(result):
         return "No string detected. Try again."
-    elif not is_legible(result):
+    elif not is_legible(cleaned_text):
         print(result)
         return "Bad read. Try again."
     return result

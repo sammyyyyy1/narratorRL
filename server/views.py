@@ -12,6 +12,7 @@ from server.functions.advanced_funcs import get_summary, get_lang, get_keywords
 from server.models import Image
 from server.serializers import ImageSerializer
 from server.functions.ocr import pytesseract_read_image
+from server.functions.preprocess import clean_text
 
 
 @api_view(["POST"])
@@ -55,7 +56,7 @@ def summarize_image(request, key):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     print("[SUMMARIZE] get summary")
-    summary = get_summary(dict(ImageSerializer(image).data)["text"])
+    summary = get_summary(clean_text(dict(ImageSerializer(image).data)["text"]))
 
     print("[SUMMARIZE] finish")
     return Response(dict(text=summary))
@@ -73,7 +74,7 @@ def get_image_lang(request, key):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     print("[LANG] get summary")
-    lang = get_lang(dict(ImageSerializer(image).data)["text"])
+    lang = get_lang(clean_text(dict(ImageSerializer(image).data)["text"]))
 
     print("[LANG] finish")
     return Response(dict(text=f"The language is {lang}."))
@@ -91,7 +92,7 @@ def get_image_keywords(request, key):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     print("[KEYWORDS] get summary")
-    keywords = get_keywords(dict(ImageSerializer(image).data)["text"])
+    keywords = get_keywords(clean_text(dict(ImageSerializer(image).data)["text"]))
 
     print("[KEYWORDS] finish")
     return Response(dict(text=f"The keywords are: {keywords}."))
