@@ -31,7 +31,8 @@ export default function Home({ navigation }) {
       // const response = await fetch(`http://192.168.154.213:8000/read/${base64}`);
       // const res_json = await response.json();
       // console.log(res_json);
-
+      // 192.168.154.213 steven
+      // 192.168.154.220
       const response = await fetch('http://192.168.154.220:8000/read/', {
         method: 'POST',
         headers: {

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, ImageBackground, View, TouchableOpacity, Text, Pressable, Animated } from "react-native";
+import { StyleSheet, ImageBackground, View, TouchableOpacity, Text, Pressable, Animated, Switch } from "react-native";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import * as Speech from 'expo-speech';
-
 
 export default function Capture({ navigation, route }) {
   const [progress, setProgress] = useState(false);
@@ -82,11 +81,27 @@ export default function Capture({ navigation, route }) {
     speak(text);
   },[]);
 
+  const toggleSwitch = () => setAdvanced(previousState => !previousState);
+
   return (
     <View style={{ flex: 1 }}>
       <Pressable style={styles.pressing} onPress={paused ? resume : pause}>
         <ImageBackground source={{ uri }} style={styles.image} resizeMode="contain"> 
           {progress ? (<AntDesign name="sound" style={styles.progressIcon} size={36} backgroundColor="#00000077" color="white" />) : undefined}
+          <View style={styles.contain}>
+            <View style={styles.textWrap}>
+              <Text style={styles.switchText}>
+                Advanced
+              </Text>
+            </View>
+            <Switch 
+              trackColor={{ false: "#767577", true: "#ffffff" }}
+              thumbColor={advanced ? "#5899f7" : "#f4f3f4"}
+              onValueChange={toggleSwitch}
+              value={advanced}
+              style={styles.switch}
+            />
+          </View>
           {paused ? 
           (<Animated.View style={[styles.soundIconWrapper, { opacity: pauseAnim }]}>
             <Ionicons name="pause-outline" style={styles.soundIcon} size={100} color="white" />
@@ -164,5 +179,33 @@ const styles = StyleSheet.create({
     left: "40%",
     alignContent: "center",
     alignSelf:"center",
+  },
+  contain: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    position: 'absolute',
+    top: 0,
+    right: 0,
+  },
+  switch: {
+    marginLeft: 5,
+    margin: "5%",
+  },
+  textWrap: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 2,
+    borderRadius: 15,
+    overflow: 'hidden',
+    height: 31,
+    width: 95,
+    backgroundColor: '#00000077',
+    borderColor: '#00000077',    
+  },
+  switchText: {
+    color: "white",
+    fontWeight: 'bold',
+    fontSize: 17,
   }
 });
