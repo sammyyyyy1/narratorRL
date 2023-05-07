@@ -19,6 +19,7 @@ def get_summary(text):
 def get_lang(text):
     co = cohere.Client(COHERE_SECRET_KEY)
     arr = [text]
+    languages = []
     results = co.detect_language(arr).results
     for item in results:
         languages.append(item.language_name)
