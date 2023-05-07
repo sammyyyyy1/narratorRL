@@ -74,6 +74,9 @@ export default function Capture({ navigation, route }) {
 
   const summarize = async () => {
     stop();
+    if (paused) {
+      resume();
+    }
     const response = await fetch(`http://${env.ip}:8000/summarize/${id}`);
     const result  = await response.json();
     speak(result.text);
@@ -81,6 +84,7 @@ export default function Capture({ navigation, route }) {
 
   const language = async () => {
     stop();
+    setPaused(false);
     const response = await fetch(`http://${env.ip}:8000/language/${id}`);
     const result  = await response.json();
     speak(result.text);
@@ -88,6 +92,7 @@ export default function Capture({ navigation, route }) {
 
   const keywords = async () => {
     stop();
+    setPaused(false);
     const response = await fetch(`http://${env.ip}:8000/keywords/${id}`);
     const result  = await response.json();
     speak(result.text);
@@ -99,7 +104,6 @@ export default function Capture({ navigation, route }) {
 
   const toggleSwitch = () => {
     setAdvanced(!advanced);
-    console.log(advanced);
   };
 
   return (
@@ -122,7 +126,7 @@ export default function Capture({ navigation, route }) {
             </Pressable>
           </View>
       </View>
-      <Pressable style={styles.pressing} onPress={paused ? resume : pause}>
+      <Pressable style={styles.pressing} disabled={!progress} onPress={paused ? resume : pause}>
         <ImageBackground source={{ uri }} style={styles.image} resizeMode="contain"> 
           {paused ? 
           (<Animated.View style={[styles.soundIconWrapper, { opacity: pauseAnim }]}>
