@@ -6,9 +6,9 @@ from rest_framework.response import Response
 from PIL import Image
 from io import BytesIO
 
-from .models import ImageText
-from .serializers import ProductSerializer
-from .functions.ocr import pytesseract_read_image
+from server.models import ImageText
+from server.serializers import ProductSerializer
+from server.functions.ocr import pytesseract_read_image
 
 
 @api_view(["POST"])

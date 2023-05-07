@@ -3,7 +3,9 @@ from string import punctuation
 from cohere import Client
 from contractions import fix as fix_contractions
 
-cohere = Client()
+from server.env import COHERE_SECRET_KEY
+
+cohere = Client(COHERE_SECRET_KEY)
 
 
 def clean_text(text):
