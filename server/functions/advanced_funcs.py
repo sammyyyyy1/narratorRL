@@ -111,13 +111,17 @@ def get_keywords(text):
     """
     
     custom_prompt = f"{prompt}\nPassage: {text}\n\nTLDR:"
-    response = co.generate(
-        model='medium',
-        prompt=custom_prompt,
-        max_tokens=10,
-        temperature=1,
-        stop_sequences=["--"])
-    keywords = response.generations[0].text.strip("\n--").lstrip(" ").split(", ")
+
+    while True:
+        response = co.generate(
+            model='medium',
+            prompt=custom_prompt,
+            max_tokens=10,
+            temperature=1,
+            stop_sequences=["--"])
+        keywords = response.generations[0].text.strip("\n--").lstrip(" ").split(", ")
+        if len(keywords) > 1:
+            break
 
     output_text = ', '.join(keywords)
 
