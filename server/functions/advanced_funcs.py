@@ -40,7 +40,7 @@ def get_keywords(text):
     if (len(text) < 100):
         return "Text must be longer than 100 characters to extract keywords."
 
-    cohere = Client("nCnCpljhAaNwrkZjVDllnDaR5JCbF3NJRcRK7Z33")
+    cohere = Client(COHERE_SECRET_KEY)
 
     prompt = f"""
     Passage: Climate change is one of the biggest challenges facing our planet. The burning of fossil fuels, deforestation, and other human activities are causing the Earth's temperature to rise, leading to more extreme weather events, rising sea levels, and other environmental problems. It is crucial that we take action to reduce our carbon footprint, transition to renewable energy sources, and protect vulnerable ecosystems.
