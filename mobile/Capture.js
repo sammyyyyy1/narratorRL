@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, ImageBackground, View, TouchableOpacity, Text, Pressable, Animated, Switch } from "react-native";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import * as Speech from 'expo-speech';
+import env from "./env";
 
 export default function Capture({ navigation, route }) {
   const [progress, setProgress] = useState(false);
@@ -73,7 +74,7 @@ export default function Capture({ navigation, route }) {
 
   const summarize = async () => {
     stop();
-    const response = await fetch(`http://192.168.154.213:8000/summarize/${id}`);
+    const response = await fetch(`http://${env.ip}:8000/summarize/${id}`);
     const result  = await response.json();
     speak(result.text);
   };

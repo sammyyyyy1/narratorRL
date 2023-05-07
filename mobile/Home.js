@@ -4,6 +4,7 @@ import { Camera } from "expo-camera";
 import { Ionicons } from "@expo/vector-icons";
 import * as FileSystem from "expo-file-system";
 import * as ImageManipulator from 'expo-image-manipulator';
+import env from "./env";
 
 export default function Home({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -25,15 +26,9 @@ export default function Home({ navigation }) {
       console.log(manip);
       const based64 = await FileSystem.readAsStringAsync(manip.uri, { encoding: FileSystem.EncodingType.Base64 });
       const base64 = based64.replaceAll('/', ';');
-      //console.log(base64);
       console.log(base64.length);
 
-      // const response = await fetch(`http://192.168.154.213:8000/read/${base64}`);
-      // const res_json = await response.json();
-      // console.log(res_json);
-      // 192.168.154.213 steven
-      // 192.168.154.220 brasen
-      const response = await fetch('http://192.168.154.213:8000/read/', {
+      const response = await fetch(`http://${env.ip}:8000/read/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
