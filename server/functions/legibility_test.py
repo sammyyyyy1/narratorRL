@@ -42,6 +42,17 @@ def is_legible(text):
                 Example("The moon shone brightly in the night sky", "Legible"),
                 Example("""reappeared nearer the towering foothills, flowed through canyons where eagles soared on currents of rising airbob shmurda hahaha cup cup laptop""", "Legible"),
                 Example(""" Its a binary condition She h dn She had not ng enough She se been sleeping gh She set down her water glags When they ventured ashore they found villages that could sed hundreds b a Willagee have hou but those villages were abandoned When they ventured farther they realized that the forest was a grav e yard This was the part of the lecture that had been easy before giving birth to her daughter and was now almost impossible""", "Legible"),
+                Example("""roperty. We encourage you to learn the teps to take if any of these incidents occur.
+                            - Get out if you can. + Stay on the phone and
+                            + Take shelter indoors. if you have training and
+                            - Use a fire extinguisher
+                            - Keep solid structural follow instructions. + Stay away from glass me '] objects between you + If you have training, and windows. it is safe to do so. and the attacker. provide first aid until - Stay under sturdy + Evacuate the building and assist others as""", "Legible"),
+                Example("""- If you can't leave, hide.
+                            furniture and near solid, structural support walls.
+                            response. needed.
+                            - - Hide Z Close Lock mute with and as phones. windows and barricade entrance. many areas the below orutperson street until help level. - minttheeventornoodin - If Close you (but need assistance don't lock) - blinds door o""", "Legible"),
+                Example(""" Hide Z Close Lock mute with and as phones windows and barricade entrance many areas the below orutperson street until help level minttheeventornoodin If Close you but need assistance do not lock blinds door others Stay and as if away possible turn you arrives from off safely can if the to door evacuate you are oy wait If able for with first the there to are ipjuted stay no out Donvt exits of building use 2 elevators doors Do Not behind use you elevators Wait lights Stay until help quiet and arrives available responders at find a an stairwell exteriorfacing room Fight as an absolute last resort using any object to attempt to stop the active attacker so you can get away Close the door and partially open windows unless this causes smoke to enter Call 911 to inform them of your location For more information visit torontomucaemergencies Download the TMU Safe mobile app to your Android or iOS device to receive alerts in an emergency on campus You can also find alerts on wwwtorontomuca tsJ and on Twitter TorontoMet Learn more at torontomucatmusafe Toronto Community i 4 baa""", "Legible"),
+                Example("""emergency all 911 ttle You are currently located in Room TRS2104 anger n tuation emergency or that constitutes is serious a an harm Situation immediate to Management or people TRS an andor Address impending 55 Building Dundas Ted Rogers Street School West of undas Street Wes roperty We encourage you to learn the teps to take if any of these incidents occur Get out if you can Stay on the phone and Take shelter indoors if you have training and""", "Legible"),
                 ])
     legibility = response[0].labels["Legible"].confidence
     print(legibility)

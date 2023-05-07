@@ -16,7 +16,7 @@ def pytesseract_read_image(image):
 
     raw_data = pytesseract.image_to_data(
         image,
-        config=r"-c tessedit_char_whitelist=\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@$%&()-_+=[];:,.?\ \'\"")
+        config=r"-c tessedit_char_whitelist=\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@$%&()-,.?\ \'\"")
     raw_data = [d.split("\t") for d in raw_data.split("\n")[1:] if not _is_empty_string(d.split("\t")[-1])]
 
     raw_data.sort(key=lambda x: int(x[7]))
