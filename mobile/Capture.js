@@ -79,6 +79,20 @@ export default function Capture({ navigation, route }) {
     speak(result.text);
   };
 
+  const language = async () => {
+    stop();
+    const response = await fetch(`http://${env.ip}:8000/summarize/${id}`);
+    const result  = await response.json();
+    speak(result.text);
+  };
+
+  const keywords = async () => {
+    stop();
+    const response = await fetch(`http://${env.ip}:8000/summarize/${id}`);
+    const result  = await response.json();
+    speak(result.text);
+  };
+
   useEffect(() => {
     speak(text);
   },[]);
@@ -129,14 +143,14 @@ export default function Capture({ navigation, route }) {
           <Text style={styles.buttonText}>Summarize</Text>
         </TouchableOpacity>
         {advanced ? 
-        (<TouchableOpacity style={styles.button} onPress={summarize}>
+        (<TouchableOpacity style={styles.button} onPress={language}>
           <Ionicons name="ios-globe-outline" size={50} color="#fff" />
           <Text style={styles.buttonText}>Language</Text>
         </TouchableOpacity>) : undefined}
         {advanced ? 
-        (<TouchableOpacity style={styles.button} onPress={summarize}>
+        (<TouchableOpacity style={styles.button} onPress={keywords}>
           <Ionicons name="logo-closed-captioning" size={50} color="#fff" />
-          <Text style={styles.buttonText}>Richard</Text>
+          <Text style={styles.buttonText}>Keywords</Text>
         </TouchableOpacity>) : undefined}
       </View>
     </View>
