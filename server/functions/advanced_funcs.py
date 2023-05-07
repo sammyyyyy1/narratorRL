@@ -5,6 +5,9 @@ from server.env import COHERE_SECRET_KEY
 
 def get_summary(text):
 
+    if len(text) < 251:
+        return "Text must be longer  than 250 characters to summarize."
+
     cohere = Client(COHERE_SECRET_KEY)
     response = cohere.summarize(
         model='summarize-xlarge',
@@ -15,6 +18,7 @@ def get_summary(text):
         text=text
     )
     summary = response.summary
+    print(summary)
 
     return summary
 
@@ -27,11 +31,14 @@ def get_lang(text):
     results = cohere.detect_language(arr).results
     for item in results:
         languages.append(item.language_name)
+    print(languages[0])
 
     return languages[0]
 
 
 def get_keywords(text):
+    if (len(text) < 100):
+        return "Text must be longer than 100 characters to extract keywords."
 
     cohere = Client("nCnCpljhAaNwrkZjVDllnDaR5JCbF3NJRcRK7Z33")
 
@@ -108,6 +115,7 @@ def get_keywords(text):
             break
 
     output_text = ', '.join(keywords)
+    print(output_text)
 
     return output_text
 
